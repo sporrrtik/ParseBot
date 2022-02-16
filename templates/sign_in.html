@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Authorization badge</title>
+    <link rel="stylesheet" href="static/sign_in.css">
+</head>
+
+<body>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<div class="ribbon"></div>
+<div class="login">
+    <h1>Let's get started.</h1>
+    <p>This will be an amazing experience</p>
+    <form method="post" action="/enter">
+{#        <input type="text" name="login" placeholder="Email">#}
+{#        <input type="password" name="password" placeholder="Password">#}
+        <div class="input">
+            <div class="blockinput">
+                <i class="icon-envelope-alt"></i><input type="text" name="login" placeholder="Email">
+            </div>
+            <div class="blockinput">
+                <i class="icon-unlock"></i><input type="password" name="password" placeholder="Password">
+            </div>
+        </div>
+        <a href="{{ url_for('sign_up') }}">Sign_up</a>
+        <button type="submit">Login</button>
+    </form>
+</div>
+
+
+</body>
+</html>

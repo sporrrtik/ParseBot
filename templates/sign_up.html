@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign_up</title>
+    <link rel="stylesheet" href="static/sign_up.css">
+</head>
+<body>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<div class="ribbon"></div>
+<div class="login">
+    <h1>Let's get started.</h1>
+    <p>Glad you decided to do this</p>
+    <form method="post" action="register">
+        <div class="input">
+            <div class="blockinput">
+                <i class="icon-envelope-alt"></i><input type="text" name="login" placeholder="Email">
+            </div>
+            <div class="blockinput">
+                <i class="icon-unlock"></i><input type="password" name="password" placeholder="Password">
+            </div>
+            <div class="blockinput">
+                <i class="icon-unlock"></i><input type="password"  name="repeat-password" placeholder="Repeat password">
+            </div>
+        </div>
+        <button>Register</button>
+    </form>
+</div>
+
+</body>
+</html>
