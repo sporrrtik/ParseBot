@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin page</title>
+</head>
+<body>
+<h3>Users list</h3>
+{% for user in user_list %}
+    <table>
+        <tr>
+            <td>{{ user[0] }}</td>
+            <td><a href="">Unsub</a></td>
+            <td><a href="">Ban</a></td>
+        </tr>
+    </table>
+{% endfor %}
+</body>
+</html>

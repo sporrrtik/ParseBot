@@ -1,5 +1,6 @@
 import sqlite3
 
+
 class SQLighter:
 
     def __init__(self, database):
@@ -55,15 +56,19 @@ class SQLighter:
     def login_is_used(self, login):
         """Достаём список всех логинов"""
         with self.connection:
-            result = self.cursor.execute("SELECT * FROM `Logins` WHERE `Login` = ?", (login,)).fetchone()
+            result = self.cursor.execute("SELECT * FROM `Logins` WHERE `Login` = ?", (login,)).fetchall()
             return bool(len(result))
 
     def data_is_correct(self, login, password):
         with self.connection:
-            result = self.cursor.execute("SELECT * FROM `Logins` WHERE `Login` = ? AND `Password` = ?", (login, password)).fetchall()
+            result = self.cursor.execute("SELECT * FROM `Logins` WHERE `Login` = ? AND `Password` = ?",
+                                         (login, password)).fetchall()
             return bool(len(result))
+
+    def get_all_users(self):
+        with self.connection:
+            return self.cursor.execute('SELECT `Login` FROM `Logins`').fetchall()
 
     def close(self):
         """Закрываем соединение с БД"""
         self.connection.close()
-

@@ -15,6 +15,7 @@ Message = namedtuple('Message', 'text tag')
 messages = []
 
 
+
 # Connecting database
 db = SQLighter('telegram_bot/db.db')
 
@@ -38,6 +39,12 @@ def sign_in():
 def sign_up():
     return render_template('sign_up.html')
 
+@app.route('/admin_page', methods=['GET','POST'])
+def admin_page():
+    return render_template('admin_page.html', user_list=db.get_all_users())
+
+# @app.route('/unsub')
+
 
 @app.route('/add_message', methods=['POST'])
 def add_message():
@@ -52,9 +59,9 @@ def add_message():
 @app.route('/register', methods=['POST'])
 def register():
     if request.form['password'] == request.form['repeat-password']:
-        if not (db.login_is_used(request.form['login'])):
+        if (not db.login_is_used(request.form['login'])):
             db.add_user(password=request.form['password'], login=request.form['login'])
-            return render_template('index.html')
+            return redirect(url_for('hello_world'))
         else:
             flash('Your login is already gotten')
     else:
