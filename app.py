@@ -4,6 +4,7 @@ from telegram_bot.sqlighter import SQLighter
 from collections import namedtuple
 
 from flask_sqlalchemy import SQLAlchemy
+import datetime
 
 app = Flask(__name__)
 app.secret_key = 'some secret123'
@@ -43,8 +44,6 @@ def sign_up():
 def admin_page():
     return render_template('admin_page.html', user_list=db.get_all_users())
 
-# @app.route('/unsub')
-
 
 @app.route('/add_message', methods=['POST'])
 def add_message():
@@ -54,6 +53,19 @@ def add_message():
     messages.append(Message(text, tag))
 
     return redirect(url_for('main'))
+
+
+@app.route('/unsub/<string:user_id>', methods=['GET','POST'])
+def unsub(user_id):
+    db.update_subscription(user_id, datetime.datetime.now(), False)
+    return redirect(url_for('admin_page'))
+
+
+@app.route("/ban/<string:user_id>", methods=['POST'])
+def ban(user_id):
+
+
+    return redirect(url_for('admin_page'))
 
 
 @app.route('/register', methods=['POST'])

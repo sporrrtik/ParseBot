@@ -67,7 +67,7 @@ class SQLighter:
 
     def get_all_users(self):
         with self.connection:
-            return self.cursor.execute('SELECT `Login` FROM `Logins`').fetchall()
+            return self.cursor.execute('SELECT `id` FROM `Users` WHERE `Subscribtion` = 1').fetchall()
 
     def close(self):
         """Закрываем соединение с БД"""
