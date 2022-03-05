@@ -9,11 +9,12 @@
 <body>
 {% with messages = get_flashed_messages() %}
   {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
+      <p class = 'flashes'>{{ messages[0] }}</p>
+{#    <ul class=flashes>#}
+{#    {% for message in messages %}#}
+{#      <li>{{ message }}</li>#}
+{#    {% endfor %}#}
+{#    </ul>#}
   {% endif %}
 {% endwith %}
 
@@ -32,7 +33,8 @@
                 <i class="icon-unlock"></i><input type="password" name="password" placeholder="Password">
             </div>
         </div>
-        <a href="{{ url_for('sign_up') }}">Sign_up</a>
+        <p class = 'question'>Don't have an account?</p>
+        <a href="{{ url_for('sign_up') }}" id = 'sign_up'>Sign_up</a>
         <button type="submit">Login</button>
     </form>
 </div>

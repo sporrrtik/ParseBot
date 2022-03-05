@@ -8,11 +8,12 @@
 <body>
 {% with messages = get_flashed_messages() %}
   {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
+      <p class = 'flashes'>{{ messages[0] }}</p>
+{#    <ul class=flashes>#}
+{#    {% for message in messages %}#}
+{#      <li>{{ message }}</li>#}
+{#    {% endfor %}#}
+{#    </ul>#}
   {% endif %}
 {% endwith %}
 <div class="ribbon"></div>
@@ -31,6 +32,8 @@
                 <i class="icon-unlock"></i><input type="password"  name="repeat-password" placeholder="Repeat password">
             </div>
         </div>
+        <p id = 'question'>Already have an account?</p>
+        <a href="{{ url_for('sign_in') }}" id = 'sign_in'>Sign in</a>
         <button>Register</button>
     </form>
 </div>

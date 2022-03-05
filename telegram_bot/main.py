@@ -26,12 +26,15 @@ last_itmocareer_post_id = 0
 
 @dp.message_handler(commands=['subscribe'])
 async def subscribe(message: types.Message):
-    if (not db.subscriber_exists(message.from_user.id)):
-        db.add_subscriber(message.from_user.id, datetime.datetime.now())
+    if db.user_is_banned(message.from_user.id, datetime.datetime.now()):
+        await message.answer("You can't be subscribed because you were banned. Wait for some time and try again")
     else:
-        db.update_subscription(message.from_user.id, datetime.datetime.now(), status=True)
-    await message.answer(
-        "You'd been subscribed successfully.\nMy congratulations!\n\nNow you can choose some news. Use command /set_news")
+        if (not db.subscriber_exists(message.from_user.id)):
+            db.add_subscriber(message.from_user.id, datetime.datetime.now())
+        else:
+            db.update_subscription(message.from_user.id, datetime.datetime.now(), status=True)
+        await message.answer(
+            "You'd been subscribed successfully.\nMy congratulations!\n\nNow you can choose some news. Use command /set_news")
     await check()
 
 

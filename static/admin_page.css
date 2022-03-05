@@ -1,0 +1,25 @@
+body {
+    background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuLyqkwjtJgcU-lwRTcqb9XJa8vTKDUmQC8Q&usqp=CAU") no-repeat 15%;
+}
+table {
+    border-collapse: collapse;
+    border: 2px solid black;
+}
+td {
+    padding: 10px;
+    border: 1px solid black
+}
+.ban {
+    color: red;
+}
+.unsub{
+    color: cyan;
+}
+a {
+    display: inline-block;
+    margin: 5px;
+    text-decoration: none;
+}
+a:hover {
+    background: black;
+}

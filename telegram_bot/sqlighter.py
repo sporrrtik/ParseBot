@@ -60,6 +60,7 @@ class SQLighter:
             return bool(len(result))
 
     def data_is_correct(self, login, password):
+        """Проверяем правильность логина и пароля"""
         with self.connection:
             result = self.cursor.execute("SELECT * FROM `Logins` WHERE `Login` = ? AND `Password` = ?",
                                          (login, password)).fetchall()
@@ -68,6 +69,26 @@ class SQLighter:
     def get_all_users(self):
         with self.connection:
             return self.cursor.execute('SELECT `id` FROM `Users` WHERE `Subscribtion` = 1').fetchall()
+
+    def ban_user(self, user_id, date):
+        """Баним пользователя"""
+        with self.connection:
+            return self.cursor.execute('INSERT INTO `Banned` (`id`,`Date`, `Time`) VALUES(?, ?, ?)',
+                                       (user_id, date, 5))
+
+    def user_is_banned(self, user_id, date):
+        """Проверяем забанен ли пользователь"""
+        with self.connection:
+            ban_date = self.cursor.execute('SELECT `Date` FROM `Banned` WHERE `id` = ?',(user_id,)).fetchall()
+            if ban_date and (int(ban_date[0][0][11:13]) == int(str(date)[11:13])):
+                time = self.cursor.execute('SELECT `Time` FROM `Banned` WHERE `id` = ?',(user_id,)).fetchall()
+                return (time[0][0] + int(ban_date[0][0][14:16])) % 60 >= int(str(date)[14:16])
+            return False
+
+    def login_as_admin(self, login):
+        """Проверяем является ли юзер админом"""
+        with self.connection:
+            return self.cursor.execute("SELECT `Admin` FROM `Logins` WHERE `Login` = ?",(login,)).fetchall()
 
     def close(self):
         """Закрываем соединение с БД"""

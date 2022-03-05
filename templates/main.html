@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Main page</title>
+    <link rel="stylesheet" href="static/main.css">
 </head>
 <body>
-<h2>Messages</h2>
-<form method="post" action="/add_message">
-    <input type="text" name="text">
-    <input type="text" name="tag">
-    <button type="submit">Add message</button>
-</form>
-
-<h3>Messages list</h3>
-{% for message in messages %}
-<div>{{ message.text }}&nbsp;<b>#{{ message.tag }}</b></div>
-{% endfor %}
+<h3>Hello regular user!</h3>
+<p>Checkout my <a href="">@ItmoParsebot</a></p>
+<p>Interested in programming? - I've got something to advise you <a href="https://vk.com/efimchik_post_edu">https://vk.com/efimchik_post_edu</a> </p>
+<img src="https://sun9-75.userapi.com/impf/c849420/v849420713/66a80/34VLmVxpddI.jpg?size=500x478&quality=96&sign=3116bc21b315560b6071c5c43a9f9f0f&type=album">
+{#<h2>Messages</h2>#}
+{#<form method="post" action="/add_message">#}
+{#    <input type="text" name="text">#}
+{#    <input type="text" name="tag">#}
+{#    <button type="submit">Add message</button>#}
+{#</form>#}
+{##}
+{#<h3>Messages list</h3>#}
+{#{% for message in messages %}#}
+{#<div>{{ message.text }}&nbsp;<b>#{{ message.tag }}</b></div>#}
+{#{% endfor %}#}
 
 </body>
 </html>

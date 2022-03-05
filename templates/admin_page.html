@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin page</title>
+    <link rel="stylesheet" href="static/admin_page.css">
 </head>
 <body>
-<h3>Users list</h3>
+<h2>Users list</h2>
+<div>
 {% for user in user_list %}
     <table>
         <tr>
             <td>{{ user[0] }}</td>
-            <td><a href="/unsub/{{ user[0] }}">Unsub</a></td>
-            <td><a href="/ban/{{ user[0] }}">Ban</a></td>
+            <td><a href="/unsub/{{ user[0] }}" class = 'unsub'>Unsub</a></td>
+            <td><a href="/ban/{{ user[0] }}" class = 'ban'>Ban</a></td>
         </tr>
     </table>
 {% endfor %}
+</div>
 </body>
 </html>

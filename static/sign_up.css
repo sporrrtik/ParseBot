@@ -133,3 +133,22 @@ button:active{
   box-shadow: inset 0 0 5px #000;
   background: linear-gradient(to bottom, rgba(57,175,154,1) 0%,rgba(107,198,186,1) 100%);
 }
+.flashes {
+  display: inline-block;
+  background: #46A294;
+  width: 100%;
+  height: 50px;
+  text-align: center;
+  color: black;
+  padding-top: 24px;
+}
+#question {
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+#sign_in {
+  color: black;
+  display: block;
+  padding: 5px;
+  background: #C5C5C8;
+}
