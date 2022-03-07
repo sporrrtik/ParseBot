@@ -90,6 +90,7 @@ class SQLighter:
         with self.connection:
             return self.cursor.execute("SELECT `Admin` FROM `Logins` WHERE `Login` = ?",(login,)).fetchall()
 
+
     def close(self):
         """Закрываем соединение с БД"""
         self.connection.close()

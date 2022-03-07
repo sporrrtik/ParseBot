@@ -21,7 +21,8 @@ def start():
 
 @app.route('/main', methods=['GET'])
 def main():
-    return render_template('main.html', )
+    login = request.args.get('login')
+    return render_template('main.html', login=login)
 
 
 @app.route('/sign_in', methods=['GET'])
@@ -36,17 +37,22 @@ def sign_up():
 
 @app.route('/admin_page', methods=['GET', 'POST'])
 def admin_page():
-    return render_template('admin_page.html', user_list=db.get_all_users())
+    login = request.args.get('login')
+    if login == 'sasha':
+        return render_template('admin_page.html', user_list=db.get_all_users())
+    flash("Do not try to cheat")
+    return render_template('sign_in.html')
 
 
-# @app.route('/add_message', methods=['POST'])
-# def add_message():
-#     text = request.form['text']
-#     tag = request.form['tag']
-#
-#     messages.append(Message(text, tag))
-#
-#     return redirect(url_for('main'))
+@app.route('/enter', methods=['POST'])
+def enter():
+    login = request.form['login']
+    if db.data_is_correct(login, request.form['password']):
+        if db.login_as_admin(login)[0][0]:
+            return redirect(url_for('admin_page', login=login))
+        return redirect(url_for('main', login=login))
+    flash('Login or password is incorrect')
+    return redirect(url_for('sign_in'))
 
 
 @app.route('/unsub/<string:user_id>', methods=['GET', 'POST'])
@@ -78,15 +84,6 @@ def register():
 
     return redirect(url_for('sign_up'))
 
-
-@app.route('/enter', methods=['POST'])
-def enter():
-    if db.data_is_correct(request.form['login'], request.form['password']):
-        if db.login_as_admin(request.form['login'])[0][0]:
-            return redirect(url_for('admin_page'))
-        return redirect(url_for('main'))
-    flash('Login or password is incorrect')
-    return redirect(url_for('sign_in'))
 
 
 if __name__ == '__main__':
