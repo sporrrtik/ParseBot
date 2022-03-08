@@ -20,9 +20,12 @@ last_kronbars_post_id = 0
 last_itmostudents_post_id = 0
 last_itmocareer_post_id = 0
 
-# @dp.message_handler(commands=['help'])
-# async def get_help(message: types.Message):
-#     message.answer("\subscribe - \n\unsubscribe - \n\set_news = ")
+@dp.message_handler(commands=['help'])
+async def get_help(message: types.Message):
+    await message.answer("\\subscribe - to start getting the newest post \n"
+                         "\\unsubscribe - to stop mail merge \n"
+                         "\\set_news - to choose the news you are interested in\n"
+                         "\\sign_up - to taste your personal web interface and see monitoribale news ")
 
 @dp.message_handler(commands=['subscribe'])
 async def subscribe(message: types.Message):
@@ -40,22 +43,34 @@ async def subscribe(message: types.Message):
 
 @dp.message_handler(commands=['set_news'])
 async def set_news(message: types.Message):
-    await message.answer("Click on the news you are interested in", reply_markup=markups.choice)
+    if db.user_subscribed(message.from_user.id):
+        await message.answer("Click on the news you are interested in", reply_markup=markups.choice)
+    await message.answer("Subscribe at first")
 
 @dp.message_handler(commands=['unsubscribe'])
 async def unsubscribe(message: types.Message):
-    if (not db.subscriber_exists(message.from_user.id)):
-        db.add_subscriber(message.from_user.id, datetime.datetime.now(), False)
-        await message.answer("You hadn't been subscribed!")
-    else:
-        db.update_subscription(message.from_user.id, datetime.datetime.now(), False)
-        await message.answer("You'd been unsubscribed and made admin upset successfully.\nGoodbye!")
+    if db.user_subscribed(message.from_user.id):
+        if (not db.subscriber_exists(message.from_user.id)):
+            db.add_subscriber(message.from_user.id, datetime.datetime.now(), False)
+            await message.answer("You hadn't been subscribed!")
+        else:
+            db.update_subscription(message.from_user.id, datetime.datetime.now(), False)
+            await message.answer("You'd been unsubscribed and made admin upset successfully.\nGoodbye!")
+    await message.answer("Subscribe at first")
 
 
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
     await message.answer(
         "Welcome, sir! You're talking with parser bot.\nI can send actual news from itmo to you. Just /subscribe and let's get it started!")
+
+
+@dp.message_handler(commands=['sign_up'])
+async def sign_up(message: types.Message):
+    if db.user_subscribed(message.from_user.id):
+        await message.answer(
+            f"Hey, you are an advanced user! Follow http://127.0.0.1:5000/sign_up to check your news subscriptions. Remember your id = {message.from_user.id}")
+    await message.answer("Subscribe at first")
 
 
 @dp.callback_query_handler(text="sport")

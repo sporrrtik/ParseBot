@@ -2,3 +2,24 @@ body {
     margin: 20px;
     text-align: center;
 }
+div {
+    margin: 10px;
+}
+table{
+    /*width: 150px;*/
+    text-align: center;
+    border-collapse: collapse;
+    border: 1px solid black;
+    margin: auto;
+}
+td {
+    border: 1px solid black;
+    display: block;
+    padding: 5px;
+}
+.green {
+    background: lightgreen;
+}
+.red {
+    background: red;
+}

@@ -22,7 +22,12 @@ def start():
 @app.route('/main', methods=['GET'])
 def main():
     login = request.args.get('login')
-    return render_template('main.html', login=login)
+    tel_id = db.get_tel_id(login)[0]
+    if tel_id:
+        news_list = [db.check_news_subscription(user_id=tel_id, news="Kronbars")[0], db.check_news_subscription(user_id=tel_id, news="ItmoStudents")[0], db.check_news_subscription(user_id=tel_id, news="ItmoCareer")[0]]
+    else:
+        news_list = []
+    return render_template('main.html', login=login, tel_id=tel_id, news_list=news_list)
 
 
 @app.route('/sign_in', methods=['GET'])
@@ -50,7 +55,8 @@ def enter():
     if db.data_is_correct(login, request.form['password']):
         if db.login_as_admin(login)[0][0]:
             return redirect(url_for('admin_page', login=login))
-        return redirect(url_for('main', login=login))
+        tel_id = db.get_tel_id(login)
+        return redirect(url_for('main', login=login, tel_id=tel_id))
     flash('Login or password is incorrect')
     return redirect(url_for('sign_in'))
 
@@ -68,6 +74,11 @@ def ban(user_id):
     # print(db.user_is_banned(user_id, datetime.datetime.now()))
     return redirect(url_for('admin_page'))
 
+@app.route("/insert_id/<string:login>", methods=['GET', 'POST'])
+def insert_id(login):
+    if login:
+        db.insert_tel_id(request.form['id'], login)
+    return redirect(url_for('main', login=login, tel_id=db.get_tel_id(login)))
 
 @app.route('/register', methods=['POST'])
 def register():

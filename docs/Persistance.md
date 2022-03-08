@@ -23,8 +23,16 @@
 | Time | Время, на которое забанен пользователь |
 | Date | Дата блокировки пользователя |
 
+### Logins
+
+| Свойство | Комментарии |
+| --- | --- |
+| id | Идентификационный номер пользователя в телеграмме |
+| Login | Логин пользователя |
+| Password | Пароль пользователя |
+
 ## ER-диаграмма
-![ER_diagram](ER-diagram.jpg)
+![ER_diagram](pics/ER_diagram.png)
 
 ## Даталогическая модель
-![BD_model](Persistance.png)
+![BD_model](pics/Persistance.png)

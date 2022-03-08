@@ -36,6 +36,13 @@ class SQLighter:
         with self.connection:
             return self.cursor.execute("UPDATE `News` SET `" + news + "` = ? WHERE `id` = ?", (status, user_id))
 
+    def user_subscribed(self, user_id):
+        """Проверяем подписку пользователя"""
+        with self.connection:
+            result = self.cursor.execute("SELECT `Subscribtion` FROM `Users` WHERE `id` = ?", (user_id,)).fetchone()
+            print(result)
+            return result
+
     def check_news_subscription(self, user_id, news):
         """Проверяем, подписан ли пользователь на новость"""
         with self.connection:
@@ -90,6 +97,20 @@ class SQLighter:
         with self.connection:
             return self.cursor.execute("SELECT `Admin` FROM `Logins` WHERE `Login` = ?",(login,)).fetchall()
 
+    def delete_from_database(self, table, column, data):
+        """Удаляем что угодно откуда угодно"""
+        with self.connection:
+            return self.cursor.execute("DELETE FROM `" + table + "` WHERE `" + column + "` = ?",(data,))
+
+    def insert_tel_id(self, id, login):
+        """Добавляем tel_id в таблицу к пользователю"""
+        with self.connection:
+            return self.cursor.execute("UPDATE `Logins` SET `tel_id` = ? WHERE `Login` = ?",(id ,login))
+
+    def get_tel_id(self, login):
+        """Достаём tel_id по логину"""
+        with self.connection:
+            return self.cursor.execute("SELECT `tel_id` FROM `Logins` WHERE `Login` = ?", (login,)).fetchone()
 
     def close(self):
         """Закрываем соединение с БД"""

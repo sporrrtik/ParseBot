@@ -7,7 +7,38 @@
 </head>
 <body>
 <h3>Hello {{ login }}!</h3>
-<p>Checkout my <a href="">@ItmoParsebot</a></p>
+{#<p>Fill the form bellow to get the opportunity to edit your news subscription</p>#}
+{% if tel_id %}
+    <table>
+        <tr>
+            {% if '1' in news_list[0] %}
+                <td class="green">Kronbars</td>
+                {% else %}
+                <td class="red">Kronbars</td>
+                {% endif %}
+            {% if '1' in news_list[1] %}
+            <td class="green">ItmoStudents</td>
+                {% else %}
+                <td class="red">ItmoStudents</td>
+                {% endif %}
+            {% if '1' in news_list[2] %}
+            <td class="green">ItmoCareer</td>
+                {% else %}
+                <td class="red">ItmoCareer</td>
+                {% endif %}
+        </tr>
+    </table>
+{% else %}
+<p>Fill the form bellow to see the news you are subscribed</p>
+    <form method="post" action="/insert_id/{{ login }}">
+        <div class="blockinput">
+            <i class="icon-envelope-alt"></i><input type="text" name="id" placeholder="telegram id">
+        </div>
+        <button>Send</button>
+    </form>
+    <p>Don't know your telegram id?</p>
+    <p>Checkout my <a href="https://t.me/ItmoParsebot">@ItmoParsebot</a>. Just send /sign_up command there</p>
+{% endif %}
 <p>Interested in programming? - I've got something to advise you <a href="https://vk.com/efimchik_post_edu">https://vk.com/efimchik_post_edu</a> </p>
 <img src="https://sun9-75.userapi.com/impf/c849420/v849420713/66a80/34VLmVxpddI.jpg?size=500x478&quality=96&sign=3116bc21b315560b6071c5c43a9f9f0f&type=album">
 {#<h2>Messages</h2>#}
